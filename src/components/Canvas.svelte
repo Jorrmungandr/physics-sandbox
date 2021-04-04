@@ -28,6 +28,7 @@
         const truePosition = [position[0], height - position[1]];
 
         if (type === 'ball') {
+          ctx.moveTo(truePosition[0] + object.radius, truePosition[1]);
           ctx.arc(truePosition[0], truePosition[1], object.radius, 0, 2 * Math.PI);
         }
       });

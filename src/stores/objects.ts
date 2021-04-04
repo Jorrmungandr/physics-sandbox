@@ -7,13 +7,33 @@ const { subscribe, set, update } = writable<ObjectStore>([
   {
     type: 'ball',
     id: generateId(),
-    mass: 5,
-    radius: 10,
+    mass: 30,
+    radius: 30,
     position: [70, 800],
-    instantForces: [{ value: [3000, 3000], name: 'test' }],
+    instantForces: [{ value: [-1000, 0], name: 'custom' }],
     lastMovement: [0, 0],
     totalMovement: [0, 0],
-  }
+  },
+  {
+    type: 'ball',
+    id: generateId(),
+    mass: 5,
+    radius: 20,
+    position: [70, 800],
+    instantForces: [{ value: [1000, 0], name: 'custom' }],
+    lastMovement: [0, 0],
+    totalMovement: [0, 0],
+  },
+  {
+    type: 'ball',
+    id: generateId(),
+    mass: 1,
+    radius: 10,
+    position: [70, 800],
+    instantForces: [{ value: [-2000, 0], name: 'custom' }],
+    lastMovement: [0, 0],
+    totalMovement: [0, 0],
+  },
 ]);
 
 type BaseObject = {

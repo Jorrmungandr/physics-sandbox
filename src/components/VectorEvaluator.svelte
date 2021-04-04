@@ -12,25 +12,26 @@
   onMount(() => {
     evaluateInterval = setInterval(() => {
       const newObjects = $objects.map((object) => {
-        const objectVectors = [...defaultForces];
         const objectTotalMovement: Vector = [...object.totalMovement];
 
-        // Sum all force vectors to totalMovement
-        object.instantForces.forEach(({ value }) => {
+        const sumToTotalMovement = ({ value }) => {
           const multiplier = framerate / 1000;
           const newVector = value.map((component) => component * multiplier);
 
           objectTotalMovement[0] += newVector[0];
           objectTotalMovement[1] += newVector[1];
-        });
+        };
 
         // Sum all force vectors to totalMovement
-        objectVectors.forEach(({ value }) => {
-          const multiplier = framerate / 1000;
-          const newVector = value.map((component) => component * multiplier);
+        object.instantForces.forEach(sumToTotalMovement);
 
-          objectTotalMovement[0] += newVector[0];
-          objectTotalMovement[1] += newVector[1];
+        // Sum all force vectors to totalMovement
+        defaultForces.forEach((force) => {
+          if (typeof force === 'function') {
+            sumToTotalMovement(force(objectTotalMovement));
+          } else {
+            sumToTotalMovement(force);
+          }
         });
 
         const positions: Vector = [...object.position];
@@ -39,7 +40,7 @@
 
         return {
           ...object,
-          movementVectors: objectVectors,
+          movementVectors: defaultForces,
           instantForces: [],
           lastMovement: object.totalMovement,
           totalMovement: objectTotalMovement,

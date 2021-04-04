@@ -8,4 +8,4 @@ export type Point = [
   number,
 ];
 
-export type SupportedForces = ('gravity');
+export type SupportedForces = ('gravity' | 'air resistance');
