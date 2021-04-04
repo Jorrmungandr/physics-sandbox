@@ -24,9 +24,12 @@
       ctx.clearRect(0, 0, width, height);
       ctx.strokeStyle = 'black';
 
-      $objects.forEach(({ position }) => {
+      $objects.forEach(({ type, position, ...object }) => {
         const truePosition = [position[0], height - position[1]];
-        ctx.arc(truePosition[0], truePosition[1], 10, 0, 2 * Math.PI);
+
+        if (type === 'ball') {
+          ctx.arc(truePosition[0], truePosition[1], object.radius, 0, 2 * Math.PI);
+        }
       });
 
       ctx.stroke();
