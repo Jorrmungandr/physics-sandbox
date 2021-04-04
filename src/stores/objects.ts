@@ -1,24 +1,33 @@
 import { writable } from 'svelte/store';
 import generateId from '../helpers/generateId';
 
-import type { SupportedForces, Vector } from '../global/types';
+import type { Vector } from '../global/types';
 
 const { subscribe, set, update } = writable<ObjectStore>([
   {
-    class: 'ball',
+    type: 'ball',
     id: generateId(),
+    mass: 5,
+    radius: 10,
     position: [70, 800],
-    movementVectors: [],
+    instantForces: [{ value: [3000, 3000], name: 'test' }],
+    lastMovement: [0, 0],
     totalMovement: [0, 0],
   }
 ]);
 
-export type Object = {
-  class: ('ball'),
+type BaseObject = {
   id: string,
   position: Vector,
-  movementVectors: { value: Vector, name: SupportedForces }[],
+  mass: number,
+  instantForces: { value: Vector, name: string }[],
+  lastMovement: Vector,
   totalMovement: Vector,
+}
+
+export type Object = BaseObject & {
+  type: 'ball',
+  radius: number,
 };
 
 export type ObjectStore = Object[];

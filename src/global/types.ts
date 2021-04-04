@@ -3,4 +3,9 @@ export type Vector = [
   number,
 ];
 
+export type Point = [
+  number,
+  number,
+];
+
 export type SupportedForces = ('gravity');
